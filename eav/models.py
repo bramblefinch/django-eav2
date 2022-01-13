@@ -107,6 +107,21 @@ class EnumGroup(models.Model):
         return '<EnumGroup {0}>'.format(self.name)
 
 
+class EntityType(models.Model):
+    """
+    Model to store the user-defined Entity types, which are used
+    to filter the attributes available for an Entity instance of a
+    given type.
+
+    This allows dynamic instantiation of Entity types within the domain.
+    """
+    name = models.CharField(
+        verbose_name=_('Name'),
+        max_length=200,
+        help_text=_('User-friendly entity type name'),
+    )
+
+
 class Attribute(models.Model):
     """
     Putting the **A** in *EAV*. This holds the attributes, or concepts.
@@ -217,7 +232,7 @@ class Attribute(models.Model):
     """
     required = models.BooleanField(verbose_name=_('Required'), default=False)
 
-    entity_ct = models.ManyToManyField(ContentType, blank=True)
+    entity_type = models.ForeignKey(EntityType, on_delete=models.CASCADE, blank=True)
     """
     This field allows you to specify a relationship with any number of content types.
     This would be useful, for example, if you wanted an attribute to apply only to
