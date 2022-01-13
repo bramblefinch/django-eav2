@@ -607,7 +607,7 @@ class Entity(object):
             instance=self.instance
         )
         if attributes:
-            return self.order_by('display_order')
+            return attributes.order_by('display_order')
         else:
             return Attribute.objects.none()
 
