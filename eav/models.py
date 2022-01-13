@@ -609,7 +609,7 @@ class Entity(object):
         if attributes:
             return self.order_by('display_order')
         else:
-            return None
+            return Attribute.objects.none()
 
     def _hasattr(self, attribute_slug):
         """
