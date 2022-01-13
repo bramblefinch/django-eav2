@@ -5,7 +5,7 @@ from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
 from django.forms.models import BaseInlineFormSet
 from django.utils.safestring import mark_safe
 
-from eav.models import Attribute, EnumGroup, EnumValue, Value
+from eav.models import Attribute, EntityType, EnumGroup, EnumValue, Value
 
 
 class BaseEntityAdmin(ModelAdmin):
@@ -80,7 +80,7 @@ class AttributeAdmin(ModelAdmin):
     list_display = ('name', 'slug', 'datatype', 'description')
     prepopulated_fields = {'slug': ('name',)}
 
-
+admin.site.register(EntityType)
 admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(EnumValue)
 admin.site.register(EnumGroup)
