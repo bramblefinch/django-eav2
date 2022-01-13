@@ -121,6 +121,10 @@ class EntityType(models.Model):
         help_text=_('User-friendly entity type name'),
     )
 
+    def __str__(self):
+        """String representation of `EntityType` instance."""
+        return str(self.name)
+
 
 class Attribute(models.Model):
     """
@@ -598,9 +602,14 @@ class Entity(object):
         Return a query set of all :class:`Attribute` objects that can be set
         for this entity.
         """
-        return self.instance._eav_config_cls.get_attributes(
+
+        attributes = self.instance._eav_config_cls.get_attributes(
             instance=self.instance
-        ).order_by('display_order')
+        )
+        if attributes:
+            return self.order_by('display_order')
+        else:
+            return None
 
     def _hasattr(self, attribute_slug):
         """
